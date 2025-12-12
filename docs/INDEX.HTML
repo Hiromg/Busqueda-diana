@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivo Confidencial: Operación Nupcial</title>
+    <!-- Remote Google Fonts fallback: carga por defecto si el navegador puede acceder -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&family=Open+Sans:wght@300;400;600;700;800&display=swap">
+    <style>
+        /* --- Estética de la Invitación --- */
+        :root {
+            --bg-color: #F8F5E6; /* Color crema del fondo de la invitación */
+            --text-color: #2C5F66; /* Color verde azulado del texto principal */
+            --accent-color: #B77B55; /* Color cobre/bronce del logo y detalles */
+            --secondary-text-color: #4A4A4A; /* Un gris oscuro para texto secundario*/
+            --card-bg: #FFFFFF; /* Fondo blanco para las tarjetas, para contraste */
+        }
+
+        /* Fuentes locales: @font-face (fallback remoto disponible comentado) */
+        /*
+          Si no cargas las fuentes locales, puedes descomentar la importación remota abajo
+          para cargar desde Google Fonts automáticamente (requiere conexión).
+        */
+        /* @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&family=Open+Sans:wght@300;400;600;700;800&display=swap'); */
+
+        /* Open Sans - Regular */
+        @font-face {
+            font-family: 'Open Sans';
+            src: url('fonts/OpenSans-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        /* Open Sans - Bold */
+        @font-face {
+            font-family: 'Open Sans';
+            src: url('fonts/OpenSans-700.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        /* Cinzel Decorative - Regular */
+        @font-face {
+            font-family: 'Cinzel Decorative';
+            src: url('fonts/CinzelDecorative-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        /* Great Vibes - Regular */
+        @font-face {
+            font-family: 'Great Vibes';
+            src: url('fonts/GreatVibes-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--secondary-text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh; /* Usar el logo como marca de agua en el fondo */
+            background-image: url("img/image_1.png.png"); /* Asegúrate de que 'image_1.png' sea el logo */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 30%; /* Ajusta el tamaño según prefieras */
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* Capa semitransparente para que el texto sea legible sobre el logo de fondo */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(248, 245, 230, 0.85); /* Color crema con transparencia */
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            z-index: 1; /* Asegura que el contenido esté sobre el fondo */
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-color); /* Borde color cobre */
+            padding: 30px;
+            border-radius: 15px; /* Bordes más redondeados */
+            box-shadow: 0 8px 20px rgba(183, 123, 85, 0.2); /* Sombra suave color cobre */
+            margin-bottom: 20px;
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+            text-align: center; /* Centrar texto por defecto para la estética */
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Estilos para el título principal "Archivo Confidencial" */
+        h1 {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-size: 2rem;
+            border-bottom: 2px solid var(--accent-color); /* Línea divisoria color cobre */
+            padding-bottom: 15px;
+            display: inline-block; /* Para que el borde se ajuste al texto */
+        }
+
+        /* Estilos para los títulos de nivel */
+        h2 {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        /* Línea decorativa debajo de los H2, similar a la de la invitación */
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Estilos para la sección de información meta */
+        .meta-info {
+            font-family: 'open sans', serif;
+            font-size: 0.9rem;
+            color: var(--accent-color); /* Color cobre */
+            margin-bottom: 25px;
+            border: 1px solid var(--accent-color);
+            padding: 12px;
+            border-radius: 8px;
+            background-color: rgba(183, 123, 85, 0.05); /* Fondo cobre muy sutil */
+        }
+
+        /* Párrafos y listas */
+        p, ul {
+            line-height: 1.7;
+            text-align: left; /* Alinear el texto del cuerpo a la izquierda para facilitar la lectura */
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            display: inline-block; /* Centrar la lista */
+            text-align: left;
+            margin-top: 0;
+        }
+
+        /* Estilos para los nombres "Diana y Javier" usando la fuente cursiva */
+        .script-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin: 10px 0 20px;
+            line-height: 1.2;
+        }
+
+        /* Estilos para los inputs */
+        .input-group {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center; /* Centrar elementos del input group */
+        }
+
+        input[type="text"], input[type="number"], input[type="password"] {
+            padding: 12px 15px;
+            background: #fff;
+            border: 2px solid #ddd; /* Borde gris claro por defecto */
+            color: var(--secondary-text-color);
+            font-family: "Open Sans", sans-serif;
+            font-size: 1rem;
+            border-radius: 8px;
+            width: 80%; /* Ancho del input */
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: var(--accent-color); /* Color cobre al enfocar */
+            outline: none;
+        }
+
+        /* Estilos para los botones */
+        button {
+            background-color: var(--text-color); /* Verde azulado */
+            color: #fff;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Open sans', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.2s;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: auto; /* Botones del ancho de su contenido */
+            min-width: 200px; /* Ancho mínimo */
+        }
+
+        button:hover {
+            background-color: #1f484f; /* Un tono más oscuro del verde azulado */
+            transform: translateY(-2px); /* Pequeño efecto de elevación */
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.whatsapp-btn {
+            background-color: #25D366; /* Verde WhatsApp */
+            display: none; /* Oculto hasta que suban archivo */
+        }
+        
+        button.whatsapp-btn:hover {
+            background-color: #1ebe57;
+        }
+
+        /* Estilos para la carga de archivos */
+        .file-upload-wrapper {
+            border: 2px dashed var(--accent-color);
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: rgba(183, 123, 85, 0.03);
+            transition: background-color 0.3s;
+        }
+        
+        .file-upload-wrapper:hover {
+             background-color: rgba(183, 123, 85, 0.08);
+        }
+
+        .file-upload-wrapper label {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--text-color);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        input[type="file"] {
+            display: none; /* Ocultar el input file nativo */
+        }
+
+        .hint {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .error-msg {
+            color: #d9534f; /* Rojo para errores */
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos específicos para el final */
+        .final-msg {
+            text-align: center;
+            font-size: 1.5rem;
+            font-family: 'Great Vibes'; /* Usar cursiva para el mensaje final */
+            color: var(--accent-color);
+            margin: 20px 0;
+        }
+        
+        /* Línea separadora */
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(183, 123, 85, 0), rgba(183, 123, 85, 0.75), rgba(183, 123, 85, 0));
+            margin: 30px 0;
+        }
+        
+        /* Imagen del logo en la pantalla de inicio */
+        .intro-logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div id="screen-intro" class="card active">
+        <img src="img/image_1.png.png" alt="Logo Diana y Javier" class="intro-logo">
+        <h1>Archivo Confidencial</h1>
+        <div class="script-text">Operación Nupcial</div>
+        <div class="meta-info">
+            DESTINO: Diana y Caro<br>
+            CLASIFICACIÓN: Secreto<br>
+        </div>
+        <p>¡Agentes! El futuro del matrimonio de <strong>Diana y Javi</strong> depende de ustedes. Su misión es recorrer la ciudad, cumplir las pruebas y encontrar el "Tesoro Final".</p>
+        <p style="text-align: center;"><strong>REGLAS DE ORO:</strong></p>
+        <ul>
+            <li>Prohibido contactar con la Base Central.</li>
+            <li>Mantener el espíritu en alto.</li>
+            <li>Se necesita evidencia (foto/video) para cada nivel.</li>
+        </ul>
+        <div class="input-group">
+            <label for="pass-intro" style="font-family: 'Cinzel Decorative', serif; color: var(--text-color);">INTRODUZCAN CLAVE DE INICIO, ES LA FECHA DE LA BODA:</label>
+            <input type="text" id="pass-intro" placeholder="DDMMAAAA">
+            <button onclick="checkPass('intro')">Comenzar Misión</button>
+            <span class="error-msg" id="error-intro">Clave Incorrecta</span>
+        </div>
+    </div>
+
+    <div id="screen-level1" class="card">
+        <h2>Nivel 1: La Caja de Sorpresa</h2>
+        <div class="meta-info">UBICACIÓN: Parque Patricios</div>
+        <p><strong>Misión 001: La novia de blanco</strong></p>
+        <p>¡Agentes! Diana debe abrir la caja prohibida. Queremos verla radiante. Usen los regalos y lookeense.</p>
+        
+        <div class="file-upload-wrapper" onclick="document.getElementById('file-level1').click()">
+            <label>1. Subir Video del Look</label>
+            <input type="file" id="file-level1" accept="image/*,video/*" onchange="enableWhatsApp('level1')">
+            <span class="hint">Toca aquí para seleccionar foto o video</span>
+        </div>
+
+        <button id="wa-level1" class="whatsapp-btn" onclick="sendWhatsApp('Nivel 1 - Look de la Novia', 'level1')">2. Enviar Evidencia por WhatsApp</button>
+        <p class="hint">Al tocar enviar, se abrirá WhatsApp. ¡Recuerda adjuntar el video!</p>
+
+        <hr>
+        <p><strong>PISTA PARA NIVEL 2:</strong> ¿Cómo se llama la perrita de Diana y Javi?</p>
+        <div class="input-group">
+            <input type="text" id="pass-level1" placeholder="Nombre de la perrita...">
+            <button onclick="checkPass('level1')">Desbloquear Nivel 2</button>
+            <span class="error-msg" id="error-level1">Respuesta Incorrecta</span>
+        </div>
+    </div>
+
+    <div id="screen-level2" class="card">
+        <h2>Nivel 2: La Promesa</h2>
+        <div class="meta-info">UBICACIÓN: Parque Patricios</div>
+        <p><strong>Misión 002: La Cueva del Tesoro</strong></p>
+        <p>El matrimonio necesita leyes firmes. Encuentren un banco, escriban una regla divertida para el matrimonio en un papel y grábense leyéndola y dejándola en el banco.</p>
+
+        <div class="file-upload-wrapper" onclick="document.getElementById('file-level2').click()">
+            <label>1. Subir Video de la Promesa</label>
+            <input type="file" id="file-level2" accept="image/*,video/*" onchange="enableWhatsApp('level2')">
+            <span class="hint">Toca aquí para seleccionar foto o video</span>
+        </div>
+
+        <button id="wa-level2" class="whatsapp-btn" onclick="sendWhatsApp('Nivel 2 - Regla de Matrimonio', 'level2')">2. Enviar Evidencia por WhatsApp</button>
+
+        <hr>
+        <p><strong>PISTA PARA NIVEL 3:</strong> Diríjanse al transporte subterráneo. ¿Qué LETRA identifica a la línea de Subte que pasa por Parque Patricios?</p>
+        <div class="input-group">
+            <input type="text" id="pass-level2" placeholder="Letra de la línea...">
+            <button onclick="checkPass('level2')">Desbloquear Nivel 3</button>
+            <span class="error-msg" id="error-level2">Respuesta Incorrecta</span>
+        </div>
+    </div>
+
+    <div id="screen-level3" class="card">
+        <h2>Nivel 3: La Proclama</h2>
+        <div class="meta-info">UBICACIÓN: Subte Línea H (Viajando)</div>
+        <p><strong>Misión 003: La Proclama de la Felicidad</strong></p>
+        <p>La Novia debe anunciar en voz alta en el vagón: "Señoras y señores, me caso. ¡Por favor, aplaudan!". Graben la reacción.</p>
+
+        <div class="file-upload-wrapper" onclick="document.getElementById('file-level3').click()">
+            <label>1. Subir Video Aplausos</label>
+            <input type="file" id="file-level3" accept="image/*,video/*" onchange="enableWhatsApp('level3')">
+            <span class="hint">Toca aquí para seleccionar foto o video</span>
+        </div>
+
+        <button id="wa-level3" class="whatsapp-btn" onclick="sendWhatsApp('Nivel 3 - Proclama en el Subte', 'level3')">2. Enviar Evidencia por WhatsApp</button>
+
+        <hr>
+        <p><strong>PISTA PARA NIVEL 4:</strong> Bajen en la estación de los grandes teatros. ¿Cómo se llama esa famosa Avenida?</p>
+        <div class="input-group">
+            <input type="text" id="pass-level3" placeholder="Nombre de la Avenida...">
+            <button onclick="checkPass('level3')">Desbloquear Nivel 4</button>
+            <span class="error-msg" id="error-level3">Respuesta Incorrecta</span>
+        </div>
+    </div>
+
+    <div id="screen-level4" class="card">
+        <h2>Nivel 4: La Novela</h2>
+        <div class="meta-info">UBICACIÓN: Av. Corrientes</div>
+        <p><strong>Misión 004: Declaración Callejera</strong></p>
+        <p>Consigan dos desconocidos que se tomen una selfie con ustedes y digan: "Me declaro fan del amor de Diana y Javi".</p>
+
+        <div class="file-upload-wrapper" onclick="document.getElementById('file-level4').click()">
+            <label>1. Subir Selfies con Desconocidos</label>
+            <input type="file" id="file-level4" accept="image/*,video/*" multiple onchange="enableWhatsApp('level4')">
+            <span class="hint">Toca aquí para seleccionar fotos o videos</span>
+        </div>
+
+        <button id="wa-level4" class="whatsapp-btn" onclick="sendWhatsApp('Nivel 4 - Fans en Corrientes', 'level4')">2. Enviar Evidencia por WhatsApp</button>
+
+        <hr>
+        <p><strong>PISTA PARA NIVEL 5:</strong> Regresen al Subte, Línea D. La clave es: ¿Cuántos días faltan exactamente para el casamiento?</p>
+        <div class="input-group">
+            <input type="number" id="pass-level4" placeholder="Número de días...">
+            <button onclick="checkPass('level4')">Desbloquear Nivel 5</button>
+            <span class="error-msg" id="error-level4">Cuenta bien los días...</span>
+        </div>
+    </div>
+
+    <div id="screen-level5" class="card">
+        <h2>Nivel 5: Modo Estatua</h2>
+        <div class="meta-info">UBICACIÓN: Plaza Italia</div>
+        <p><strong>Misión 005: Imitación Ridícula</strong></p>
+        <p>Busquen una estatua en Plaza Italia/Botánico. Imiten su pose de forma exagerada y ridícula interactuando con ella.</p>
+
+        <div class="file-upload-wrapper" onclick="document.getElementById('file-level5').click()">
+            <label>1. Subir Foto/Video Estatua</label>
+            <input type="file" id="file-level5" accept="image/*,video/*" onchange="enableWhatsApp('level5')">
+            <span class="hint">Toca aquí para seleccionar foto o video</span>
+        </div>
+
+        <button id="wa-level5" class="whatsapp-btn" onclick="sendWhatsApp('Nivel 5 - Modo Estatua', 'level5')">2. Enviar Evidencia por WhatsApp</button>
+
+        <hr>
+        <p><strong>PISTA FINAL:</strong> ¡Recta final! La clave son los últimos 4 números del teléfono del futuro esposo (Javi).</p>
+        <div class="input-group">
+            <input type="text" id="pass-level5" placeholder="XXXX">
+            <button onclick="checkPass('level5')">REVELAR TESORO</button>
+            <span class="error-msg" id="error-level5">Incorrecto</span>
+        </div>
+    </div>
+
+    <div id="screen-final" class="card">
+        <img src="img/image_1.png.png" alt="Logo Diana y Javier" class="intro-logo" style="width: 120px;">
+        <h1>¡MISIÓN CUMPLIDA!</h1>
+        <div class="meta-info">DESTINO FINAL: Hipódromo de Palermo</div>
+        <p class="final-msg script-text">El Caballo Ganador Eres Tú.</p>
+        <p>Han recorrido la ciudad y superado cada desafío. Diríjanse al punto de encuentro: <strong>Av. del Libertador 4101</strong>.</p>
+        <hr>
+        <h3>Última Pista del Tesoro:</h3>
+        <p style="text-align: center; font-style: italic; color: var(--text-color);">
+            "Correrás hacia el lugar donde apuestan los grandes,<br>
+            Serás recibida como la reina que eres.<br>
+            Pero para ver a tu equipo, deberás buscar...<br>
+            No el color de un caballo, sino un color en cada cabeza.<br><br>
+            Somos un jardín de pelo,<br>
+            Cortado a la altura de tu mentón<br>
+            ¿Qué accesorio llevamos todas,<br>
+            Que anuncia a toda voz nuestra gran celebración?"
+        </p>
+        <h2 style="margin-top: 30px; color: var(--accent-color);">¡QUE EMPIECE LA FIESTA!</h2>
+    </div>
+
+</div>
+
+<script>
+    // ==========================================
+    // CONFIGURACIÓN DEL JUEGO (EDITAR AQUÍ)
+    // ==========================================
+    
+    // 1. Número de WhatsApp al que llegarán las fotos (Con código de país, sin +)
+    // Ejemplo: 5491130719149 (Argentina)
+    const TARGET_PHONE = "5491130719149"; 
+
+    // 2. Respuestas Correctas para pasar de nivel
+    // IMPORTANTE: Escribe todo en MAYÚSCULAS aquí para evitar errores.
+    const ANSWERS = {
+        intro: "19122025",       // Fecha casamiento
+        level1: "SUN",   // CAMBIAR POR NOMBRE REAL DEL PERRO
+        level2: "H",             // Letra de la linea de subte
+        level3: "CORRIENTES",    // Avenida
+        level4: "2",            // CAMBIAR POR LOS DÍAS REALES QUE FALTEN (aprox)
+        level5: "6716"           // CAMBIAR POR ULTIMOS 4 NUMEROS DE JAVI
+    };
+
+    // ==========================================
+    // LÓGICA DEL SISTEMA (NO TOCAR)
+    // ==========================================
+
+    function checkPass(level) {
+        const inputId = `pass-${level}`;
+        const errorId = `error-${level}`;
+        const userInput = document.getElementById(inputId).value.toUpperCase().trim();
+        
+        // Validación especial para intro (fecha exacta)
+        if(level === 'intro' && userInput === ANSWERS.intro) {
+            nextLevel('level1');
+            return;
+        }
+
+        // Validación general
+        if (userInput === ANSWERS[level]) {
+            // Determinar siguiente nivel
+            let next = '';
+            if(level === 'level1') next = 'level2';
+            if(level === 'level2') next = 'level3';
+            if(level === 'level3') next = 'level4';
+            if(level === 'level4') next = 'level5';
+            if(level === 'level5') next = 'final';
+            
+            nextLevel(next);
+        } else {
+            // Mostrar error
+            const errorSpan = document.getElementById(errorId);
+            errorSpan.style.display = 'block';
+            setTimeout(() => errorSpan.style.display = 'none', 3000);
+        }
+    }
+
+    function nextLevel(nextId) {
+        // Ocultar todos
+        document.querySelectorAll('.card').forEach(el => el.classList.remove('active'));
+        // Mostrar siguiente y hacer scroll arriba
+        document.getElementById(`screen-${nextId}`).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function enableWhatsApp(level) {
+        // Muestra el botón de enviar a whatsapp cuando seleccionan un archivo
+        const btn = document.getElementById(`wa-${level}`);
+        if(document.getElementById(`file-${level}`).files.length > 0) {
+            btn.style.display = 'block';
+            // Cambiar texto del label para indicar que está listo
+            const label = document.querySelector(`#screen-${level} .file-upload-wrapper label`);
+            label.textContent = "¡Archivo seleccionado! Listo para enviar.";
+            label.style.color = "#25D366";
+        }
+    }
+
+    function sendWhatsApp(message, level) {
+        // Genera el link de WhatsApp con el texto predefinido
+        // Nota: No se puede adjuntar el archivo programáticamente por seguridad del navegador.
+        // El usuario debe adjuntarlo manualmente en el chat que se abre.
+        const text = encodeURIComponent(`🕵️‍♀️ REPORTE DE MISIÓN: ${message}. (Adjunto evidencia aquí)`);
+        const url = `https://wa.me/${TARGET_PHONE}?text=${text}`;
+        window.open(url, '_blank');
+        
+        // Opcional: Auto-scroll a la pregunta de desbloqueo para agilizar
+        setTimeout(() => {
+            const inputArea = document.getElementById(`pass-${level}`);
+            if(inputArea) {
+                inputArea.focus();
+                inputArea.scrollIntoView({behavior: 'smooth', block: 'center'});
+            }
+        }, 1000);
+    }
+
+    // -------------------------------
+    // Debug fonts: Mostrar si las fuentes están disponibles
+    // -------------------------------
+    function checkFontsAvailability() {
+        const fontsToCheck = [
+            { name: 'Open Sans', css: '1rem "Open Sans"' },
+            { name: 'Cinzel Decorative', css: '1rem "Cinzel Decorative"' },
+            { name: 'Great Vibes', css: '1rem "Great Vibes"' }
+        ];
+        let missing = [];
+        fontsToCheck.forEach(f => {
+            const ok = document.fonts.check(f.css);
+            console.log(`${f.name}: ${ok ? 'loaded' : 'missing'}`);
+            if (!ok) missing.push(f.name);
+        });
+        if (missing.length > 0) {
+            const el = document.createElement('div');
+            el.id = 'font-debug';
+            el.style.position = 'fixed';
+            el.style.right = '10px';
+            el.style.top = '10px';
+            el.style.zIndex = '9999';
+            el.style.background = '#fff3';
+            el.style.padding = '8px 12px';
+            el.style.border = '1px solid #ccc';
+            el.style.borderRadius = '6px';
+            el.style.fontSize = '13px';
+            el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+            el.textContent = `Fuentes no cargadas: ${missing.join(', ')}`;
+            document.body.appendChild(el);
+
+            // Inyectar import remoto como fallback (Google Fonts)
+            const remoteLink = document.createElement('link');
+            remoteLink.rel = 'stylesheet';
+            remoteLink.href = "https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&family=Open+Sans:wght@300;400;600;700;800&display=swap";
+            document.head.appendChild(remoteLink);
+
+            // Re-check after un segundo para ver si las fuentes se cargan desde Google
+            setTimeout(() => {
+                const nowMissing = [];
+                fontsToCheck.forEach(f => { if (!document.fonts.check(f.css)) nowMissing.push(f.name); });
+                if (nowMissing.length === 0) {
+                    el.remove();
+                    console.log('Fuentes cargadas correctamente desde fallback remoto.');
+                } else {
+                    el.textContent = `Fuentes aún faltantes: ${nowMissing.join(', ')}`;
+                }
+            }, 1500);
+        } else {
+            console.log('Todas las fuentes aparecen cargadas.');
+        }
+    }
+    // Esperar a que el navegador intente cargar las fuentes
+    window.addEventListener('load', () => setTimeout(checkFontsAvailability, 800));
+</script>
+
+</body>
+</html>
